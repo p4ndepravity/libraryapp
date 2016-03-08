@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 public class Book {
 	private String id;
 	private String title;
@@ -25,6 +27,18 @@ public class Book {
 		this.authorLastName = authorLastName;
 		this.authorFirstName = authorFirstName;
 		this.rating = rating;
+	}
+	
+	public Book(List<String> list) {
+		this.id = list.get(0);
+		this.title = list.get(1);
+		this.authorLastName = list.get(2);
+		this.authorFirstName = list.get(3);
+		try {
+			this.rating = Integer.parseInt(list.get(4));
+		} catch (NumberFormatException e) {
+			this.rating = 5;
+		}
 	}
 
 	public String getid() {

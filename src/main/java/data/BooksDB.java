@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import models.Book;
+
 public class BooksDB {
 
 	private Connection dbConnection = null;
@@ -63,6 +65,20 @@ public class BooksDB {
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "order by author_last_name desc");
 	}
+	
+	public void add(Book b) throws SQLException {
+		String s = "insert into library.books "
+				 + "(book_id,title,author_last_name,author_first_name,rating) "
+				 + "values ('" + b.getid() + "',"
+				 		 + "'" + b.getTitle() + "',"
+				 		 + "'" + b.getAuthorLastName() + "',"
+				 		 + "'" + b.getAuthorFirstName() + "',"
+				 		 	   + b.getRating() + ")";
+		dbStatement.executeUpdate(s);
+		count++;
+		rs = dbStatement.executeQuery("select * from Books "
+									+ "order by author_last_name desc");
+}
 
 	public void displayAll() throws SQLException {
 		String title;

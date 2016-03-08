@@ -2,12 +2,14 @@ package main;
 
 import data.*;
 import menus.*;
+import models.Book;
 
 public class Application {
 
 	public static void main(String[] args) throws Exception {
 
-		/*
+		/* Implements visual style for UI elements
+		 * 
 		 * try {
 		 * UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		 * } catch (ClassNotFoundException e) { e.printStackTrace(); } catch
@@ -16,11 +18,11 @@ public class Application {
 		 * (UnsupportedLookAndFeelException e) { e.printStackTrace(); }
 		 */
 
-		@SuppressWarnings("unused")
 		BooksDB books = new BooksDB();
 		int choice = 0;
 
 		do {
+			int choice2 = 0;
 			MainMenu m = new MainMenu();
 			m.showOptions();
 			choice = m.choose();
@@ -32,7 +34,17 @@ public class Application {
 			case 1:
 				BooksMenu bm = new BooksMenu();
 				bm.showOptions();
-				bm.choose();
+				choice2 = bm.choose();
+				switch (choice2) {
+				case 1:
+					AddMenu am = new AddMenu(bm);
+					Book b = new Book(am.askOptions());
+					books.add(b);
+					break;
+
+				default:
+					break;
+				}
 				break;
 				
 			//////////////////////////////////////////////////////
@@ -41,7 +53,7 @@ public class Application {
 			case 2:
 				PatronsMenu pm = new PatronsMenu();
 				pm.showOptions();
-				pm.choose();
+				choice2 = pm.choose();
 				break;
 				
 			//////////////////////////////////////////////////////
@@ -50,7 +62,7 @@ public class Application {
 			case 3:
 				TransactionsMenu tm = new TransactionsMenu();
 				tm.showOptions();
-				tm.choose();
+				choice2 = tm.choose();
 				break;
 				
 			case 4:

@@ -36,7 +36,6 @@ public abstract class Menu implements MenuInterface {
 	public String respond() {
 		Scanner in = new Scanner(System.in);
 		String response = in.nextLine();
-		in.close();
 		return response;
 	}
 }
