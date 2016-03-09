@@ -7,7 +7,6 @@ import menus.*;
 
 public class AddMenuTest {
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	private ByteArrayInputStream inContent;
 	AddMenu am;
 
 	@Before

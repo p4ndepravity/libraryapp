@@ -23,6 +23,7 @@ public abstract class Menu implements MenuInterface {
 		return responses;
 	}
 
+	@SuppressWarnings("resource")
 	public int choose() {
 		Scanner in = new Scanner(System.in);
 		String line = in.nextLine();
@@ -37,6 +38,7 @@ public abstract class Menu implements MenuInterface {
 		return choice;
 	}
 
+	@SuppressWarnings("resource")
 	public String respond() {
 		Scanner in = new Scanner(System.in);
 		long millis = System.currentTimeMillis();

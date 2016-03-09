@@ -2,7 +2,6 @@ package menus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class ChangeMenu extends Menu {
 	public ChangeMenu(BooksMenu bm) {
