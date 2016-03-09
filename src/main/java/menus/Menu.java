@@ -1,27 +1,28 @@
 package menus;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public abstract class Menu implements MenuInterface {
 	protected List<String> options = new ArrayList<String>();
-	
+
 	public void showOptions() {
 		ListIterator<String> it = options.listIterator();
-		while(it.hasNext()){
-			System.out.format("%s\n",it.next());
+		while (it.hasNext()) {
+			System.out.format("%s\n", it.next());
 		}
 	}
-	
+
 	public List<String> askOptions() {
 		List<String> responses = new ArrayList<String>();
 		ListIterator<String> it = options.listIterator();
-		while(it.hasNext()){
+		while (it.hasNext()) {
 			System.out.println(it.next());
 			responses.add(this.respond());
 		}
 		return responses;
 	}
-	
+
 	public int choose() {
 		Scanner in = new Scanner(System.in);
 		int choice;
@@ -32,10 +33,14 @@ public abstract class Menu implements MenuInterface {
 		}
 		return choice;
 	}
-	
+
 	public String respond() {
 		Scanner in = new Scanner(System.in);
+		long millis = System.currentTimeMillis();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		Date stamp = new Date(millis);
 		String response = in.nextLine();
+		response = response.equals("") ? "BLANK" + sdf.format(stamp) : response;
 		return response;
 	}
 }

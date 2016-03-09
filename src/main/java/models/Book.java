@@ -44,6 +44,10 @@ public class Book {
 	public String getid() {
 		return id;
 	}
+	
+	public String id20() {
+		return id.substring(0, Math.min(id.length(), 20));
+	}
 
 	public void setid(String id) {
 		this.id = id;
@@ -51,6 +55,10 @@ public class Book {
 
 	public String getTitle() {
 		return title;
+	}
+	
+	public String title50() {
+		return title.substring(0, Math.min(title.length(), 50));
 	}
 
 	public void setTitle(String title) {
@@ -60,6 +68,10 @@ public class Book {
 	public String getAuthorLastName() {
 		return authorLastName;
 	}
+	
+	public String authLN25() {
+		return authorLastName.substring(0, Math.min(authorLastName.length(), 25));
+	}
 
 	public void setAuthorLastName(String authorLastName) {
 		this.authorLastName = authorLastName;
@@ -67,6 +79,10 @@ public class Book {
 
 	public String getAuthorFirstName() {
 		return authorFirstName;
+	}
+	
+	public String authFN25() {
+		return authorFirstName.substring(0, Math.min(authorFirstName.length(), 25));
 	}
 
 	public void setAuthorFirstName(String authorFirstName) {

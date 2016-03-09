@@ -32,16 +32,27 @@ public class Application {
 			//	Books Menu										//
 			//////////////////////////////////////////////////////
 			case 1:
+				int choice3 = 0;
 				BooksMenu bm = new BooksMenu();
 				bm.showOptions();
 				choice2 = bm.choose();
 				switch (choice2) {
+				
+				// Add books menu
 				case 1:
 					AddMenu am = new AddMenu(bm);
 					Book b = new Book(am.askOptions());
 					books.add(b);
 					break;
-
+				
+				// Search for books menu
+				case 2:
+					SearchMenu sm = new SearchMenu(bm);
+					sm.showOptions();
+					choice3 = sm.choose();
+					
+					break;
+					
 				default:
 					break;
 				}

@@ -60,8 +60,13 @@ public class BooksDB {
 						+ "'" + authLName + "',"
 						+ "'" + authFName + "',"
 							  + rating + ")";
-		dbStatement.executeUpdate(s);
-		count++;
+		try {
+			dbStatement.executeUpdate(s);
+			count++;
+		} catch (Exception e) {
+			System.out.println("Failed to add book.");
+			e.printStackTrace();
+		}
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "order by author_last_name desc");
 	}
@@ -70,12 +75,18 @@ public class BooksDB {
 		String s = "insert into library.books "
 				 + "(book_id,title,author_last_name,author_first_name,rating) "
 				 + "values ('" + b.getid() + "',"
-				 		 + "'" + b.getTitle() + "',"
-				 		 + "'" + b.getAuthorLastName() + "',"
-				 		 + "'" + b.getAuthorFirstName() + "',"
+				 		 + "'" + b.title50() + "',"
+				 		 + "'" + b.authLN25() + "',"
+				 		 + "'" + b.authFN25() + "',"
 				 		 	   + b.getRating() + ")";
-		dbStatement.executeUpdate(s);
-		count++;
+		try {
+			dbStatement.executeUpdate(s);
+			count++;
+			System.out.println("Added book with ID  " + b.getid());
+		} catch (Exception e) {
+			System.out.println("Failed to add Book");
+			e.getMessage();
+		}
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "order by author_last_name desc");
 }
@@ -163,7 +174,7 @@ public class BooksDB {
 	public void returnBooksByRating(int choice) throws SQLException {
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "where rating like " + choice + " "
-									+ "order by title desc");
+									+ "order by author_last_name desc");
 		String title;
 		String author;
 		String id;
@@ -181,7 +192,12 @@ public class BooksDB {
 					   String newValue) throws SQLException {
 		String query = "update Books set " + column + "='" + newValue + "' "
 					 + "where book_id='" + id + "'";
-		dbStatement.executeUpdate(query);
+		try {
+			dbStatement.executeUpdate(query);
+		} catch (Exception e) {
+			System.out.println("Failed to change book.");
+			e.printStackTrace();
+		}
 
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "order by author_last_name desc");
