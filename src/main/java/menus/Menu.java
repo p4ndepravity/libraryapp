@@ -25,10 +25,13 @@ public abstract class Menu implements MenuInterface {
 
 	public int choose() {
 		Scanner in = new Scanner(System.in);
+		String line = in.nextLine();
+		line = line.equals("") ? Integer.toString(-1) : line;
 		int choice;
 		try {
-			choice = in.hasNextInt() ? Integer.parseInt(in.nextLine()) : -1;
+			choice = Integer.parseInt(line);
 		} catch (NumberFormatException e) {
+			System.out.println("Unrecognized input.");
 			choice = -1;
 		}
 		return choice;

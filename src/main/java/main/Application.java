@@ -32,7 +32,6 @@ public class Application {
 			//	Books Menu										//
 			//////////////////////////////////////////////////////
 			case 1:
-				int choice3 = 0;
 				BooksMenu bm = new BooksMenu();
 				bm.showOptions();
 				choice2 = bm.choose();
@@ -49,8 +48,20 @@ public class Application {
 				case 2:
 					SearchMenu sm = new SearchMenu(bm);
 					sm.showOptions();
-					choice3 = sm.choose();
+					int choice3 = sm.choose();
+					if (choice3 == 6 || choice3 == -1) break;
+					String response = sm.respond(choice3);
+					sm.printResults(choice3, response, books);
+					break;
 					
+				// Change a book's details
+				case 3:
+					//TODO
+					break;
+					
+				// Delete a book
+				case 4:
+					//TODO
 					break;
 					
 				default:

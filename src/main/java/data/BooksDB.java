@@ -97,7 +97,12 @@ public class BooksDB {
 
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "order by author_last_name desc");
-
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
 		while (rs.next()) {
 			title = rs.getString("title");
 			author = rs.getString("author_first_name") + " " 
@@ -109,7 +114,12 @@ public class BooksDB {
 	public void displaySelected(String id) throws SQLException {
 		String query = "select * from Books where book_id like '" + id + "'";
 		rs = dbStatement.executeQuery(query);
-
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
 		while (rs.next()) {
 			System.out.println("id: " + rs.getString("book_id"));
 			System.out.println("title: " + rs.getString("title"));
@@ -127,6 +137,12 @@ public class BooksDB {
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "where author_last_name like '%" + s + "%' "
 									+ "order by author_last_name desc");
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
 		String title;
 		String author;
 		String id;
@@ -143,6 +159,12 @@ public class BooksDB {
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "where author_first_name like '%" + s + "%' "
 									+ "order by author_first_name desc");
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
 		String title;
 		String author;
 		String id;
@@ -159,6 +181,12 @@ public class BooksDB {
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "where title like '%" + s + "%' "
 									+ "order by title desc");
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
 		String title;
 		String author;
 		String id;
@@ -167,7 +195,7 @@ public class BooksDB {
 			title = rs.getString("title");
 			author = rs.getString("author_first_name") + " " 
 				   + rs.getString("author_last_name");
-			System.out.println(id + " " + title + " by " + author + "\n\n");
+			System.out.println(id + " " + title + " by " + author);
 		}
 	}
 	
@@ -175,6 +203,12 @@ public class BooksDB {
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "where rating like " + choice + " "
 									+ "order by author_last_name desc");
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
 		String title;
 		String author;
 		String id;
