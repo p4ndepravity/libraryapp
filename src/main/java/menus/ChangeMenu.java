@@ -50,8 +50,9 @@ public class ChangeMenu extends Menu {
 	
 	@Override
 	public void showOptions() {
-		for (int i=1;i<options.size();i++)
-			System.out.format("%d. %s\n", i, this.options.get(i));
+		System.out.format("%s\n", this.options.get(1));
+		for (int i=2;i<options.size();i++)
+			System.out.format("%d. %s\n", i-1, this.options.get(i));
 	}
 }
 

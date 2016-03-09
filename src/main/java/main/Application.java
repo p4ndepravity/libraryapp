@@ -60,8 +60,8 @@ public class Application {
 					String bookid = cm.askOptions().get(0);
 					cm.showOptions();
 					int columnNum = cm.choose();
-					if (columnNum > 5 || columnNum < 1) break;
-					String newValue = cm.respond(columnNum);
+					if (columnNum > 6 || columnNum < 1) break;
+					String newValue = cm.respond(columnNum+1);
 					books.change(bookid, columnNum, newValue);
 					break;
 					

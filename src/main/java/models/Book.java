@@ -30,6 +30,7 @@ public class Book {
 	}
 	
 	public Book(List<String> list) {
+		if (list.isEmpty()) return;
 		this.id = list.get(0);
 		this.title = list.get(1);
 		this.authorLastName = list.get(2);
@@ -104,5 +105,31 @@ public class Book {
 	@Override
 	public String toString() {
 		return this.title + " by " + this.authorFirstName + " " + this.authorLastName;
+	}
+	
+	public void change(int index, String value) {
+		switch (index) {
+		case 1:
+			this.id = value;
+			break;
+		case 2:
+			this.title = value;
+			break;
+		case 3:
+			this.authorLastName = value;
+			break;
+		case 4:
+			this.authorFirstName = value;
+			break;
+		case 5:
+			try {
+				this.rating = Integer.parseInt(value);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+			break;
+		default:
+			break;
+		}
 	}
 }

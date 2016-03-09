@@ -138,6 +138,25 @@ public class BooksDB {
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "order by author_last_name desc");
 	}
+	
+	public List<String> getSelected(String id) throws SQLException {
+		String query = "select * from Books where book_id like '" + id + "'";
+		rs = dbStatement.executeQuery(query);
+		List<String> values = new ArrayList<String>();
+		if (rs.next()) {
+			values.add(rs.getString("book_id"));        
+			values.add(rs.getString("title"));          
+			values.add(rs.getString("author_first_name"));
+			values.add(rs.getString("author_last_name"));
+			values.add(rs.getString("rating"));
+		} else {
+			System.out.println("Nothing matching query found in database.");
+		}
+
+		rs = dbStatement.executeQuery("select * from Books "
+									+ "order by author_last_name desc");
+		return values;
+	}
 
 	public void returnBooksByAuthLastName(String s) throws SQLException {
 		rs = dbStatement.executeQuery("select * from Books "
@@ -230,12 +249,13 @@ public class BooksDB {
 	public void change(String id, 
 					   int colNum, 
 					   String newValue) throws SQLException {
-		String query = "update Books set " + columnName(colNum) + "='" + newValue + "' "
+		String query = "update Books set " + columnName(colNum-1) + "='" + newValue + "' "
 					 + "where book_id='" + id + "'";
 		try {
 			dbStatement.executeUpdate(query);
+			System.out.println("Book successfully updated.");
 		} catch (Exception e) {
-			System.out.println("Failed to change book.");
+			System.out.println("Failed to update book.");
 			e.printStackTrace();
 		}
 
@@ -260,7 +280,7 @@ public class BooksDB {
 	}
 	
 	private String columnName(int index) {
-		return columnName(index);
+		return columnNames.get(index);
 	}
 }
 
