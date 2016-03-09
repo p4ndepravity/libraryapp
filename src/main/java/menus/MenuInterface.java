@@ -4,7 +4,8 @@ import java.util.*;
 
 public interface MenuInterface {
 	void showOptions();
-	int choose();
 	List<String> askOptions();
+	int choose();
 	String respond();
+	String respond(int index);
 }

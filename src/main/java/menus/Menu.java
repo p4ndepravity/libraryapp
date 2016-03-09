@@ -46,4 +46,9 @@ public abstract class Menu implements MenuInterface {
 		response = response.equals("") ? "BLANK" + sdf.format(stamp) : response;
 		return response;
 	}
+	
+	public String respond(int index) {
+		System.out.println("Enter the " + this.options.get(index));
+		return this.respond();
+	}
 }

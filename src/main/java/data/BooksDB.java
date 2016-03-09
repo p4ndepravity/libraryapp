@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
+import java.util.*;
 
 import models.Book;
 
@@ -15,10 +15,16 @@ public class BooksDB {
 	private Connection dbConnection = null;
 	private Statement dbStatement = null;
 	private ResultSet rs = null;
+	private List<String> columnNames = new ArrayList<String>();
 	public static int count = 0;
 
 	public BooksDB() throws Exception {
-
+		columnNames.add("book_id");
+		columnNames.add("title");
+		columnNames.add("author_last_name");
+		columnNames.add("author_first_name");
+		columnNames.add("rating");
+		
 		try {
 			// Load the properties file
 			Properties props = new Properties();
@@ -222,9 +228,9 @@ public class BooksDB {
 	}
 	
 	public void change(String id, 
-					   String column, 
+					   int colNum, 
 					   String newValue) throws SQLException {
-		String query = "update Books set " + column + "='" + newValue + "' "
+		String query = "update Books set " + columnName(colNum) + "='" + newValue + "' "
 					 + "where book_id='" + id + "'";
 		try {
 			dbStatement.executeUpdate(query);
@@ -245,13 +251,33 @@ public class BooksDB {
 		if (rs != null) {
 			rs.close();
 		}
-
 		if (dbStatement != null) {
 			dbStatement.close();
 		}
-
 		if (dbConnection != null) {
 			dbConnection.close();
 		}
 	}
+	
+	private String columnName(int index) {
+		return columnName(index);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

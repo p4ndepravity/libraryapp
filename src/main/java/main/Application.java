@@ -2,7 +2,7 @@ package main;
 
 import data.*;
 import menus.*;
-import models.Book;
+import models.*;
 
 public class Application {
 
@@ -48,18 +48,24 @@ public class Application {
 				case 2:
 					SearchMenu sm = new SearchMenu(bm);
 					sm.showOptions();
-					int choice3 = sm.choose();
-					if (choice3 == 6 || choice3 == -1) break;
-					String response = sm.respond(choice3);
-					sm.printResults(choice3, response, books);
+					int searchFieldIndex = sm.choose();
+					if (searchFieldIndex > 5 || searchFieldIndex < 1) break;
+					String response = sm.respond(searchFieldIndex);
+					sm.printResults(searchFieldIndex, response, books);
 					break;
 					
-				// Change a book's details
+				// Change a book menu
 				case 3:
-					//TODO
+					ChangeMenu cm = new ChangeMenu(bm);
+					String bookid = cm.askOptions().get(0);
+					cm.showOptions();
+					int columnNum = cm.choose();
+					if (columnNum > 5 || columnNum < 1) break;
+					String newValue = cm.respond(columnNum);
+					books.change(bookid, columnNum, newValue);
 					break;
 					
-				// Delete a book
+				// Delete a book menu
 				case 4:
 					//TODO
 					break;

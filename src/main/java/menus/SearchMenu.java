@@ -46,11 +46,6 @@ public class SearchMenu extends Menu {
 			System.out.format("%d. %s\n", i, this.options.get(i));
 		}
 	}
-
-	public String respond(int choice) {
-		System.out.println("Enter an " + this.options.get(choice));
-		return super.respond();
-	}
 	
 	public void printResults(int choice, 
 							 String response, 
