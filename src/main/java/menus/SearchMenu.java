@@ -2,7 +2,7 @@ package menus;
 
 import java.sql.SQLException;
 
-import data.BooksDB;
+import data.*;
 
 public class SearchMenu extends Menu {
 	public SearchMenu(BooksMenu bm) {
@@ -14,39 +14,37 @@ public class SearchMenu extends Menu {
 		this.options.add("Rating");
 		this.options.add("Return to previous menu");
 	}
-	
+
 	public SearchMenu(PatronsMenu pm) {
-		/* TODO
 		this.options.add("Choose a search method: ");
 		this.options.add("ID");
-		this.options.add("Title");
-		this.options.add("Author last name");
-		this.options.add("Author first name");
-		this.options.add("Rating");
+		this.options.add("Last name");
+		this.options.add("First name");
+		this.options.add("Street Address");
+		this.options.add("City");
+		this.options.add("State");
+		this.options.add("Zipcode");
 		this.options.add("Return to previous menu");
-		*/
 	}
-	
+
 	public SearchMenu(TransactionsMenu tm) {
-		/* TODO
 		this.options.add("Choose a search method: ");
 		this.options.add("ID");
-		this.options.add("Title");
-		this.options.add("Author last name");
-		this.options.add("Author first name");
-		this.options.add("Rating");
+		this.options.add("Patron ID");
+		this.options.add("Book ID");
+		this.options.add("Date");
+		this.options.add("Type");
 		this.options.add("Return to previous menu");
-		*/
 	}
-	
+
 	@Override
 	public void showOptions() {
 		System.out.format("%s\n", this.options.get(0));
-		for(int i=1;i<this.options.size();i++) {
+		for (int i = 1; i < this.options.size(); i++) {
 			System.out.format("%d. %s\n", i, this.options.get(i));
 		}
 	}
-	
+
 	public void printResults(int choice, 
 							 String response, 
 							 BooksDB books) throws SQLException {
@@ -79,30 +77,37 @@ public class SearchMenu extends Menu {
 			return;
 		}
 	}
+
+	public void printResults(int choice, 
+							 String response, 
+							 PatronsDB patrons) throws SQLException {
+		switch (choice) {
+		case 1:
+			patrons.displaySelected(response);
+			return;
+		case 2:
+			patrons.returnPatronsByLastName(response);
+			return;
+		case 3:
+			//patrons.returnBooksByAuthLastName(response);
+			return;
+		case 4:
+			//patrons.returnBooksByAuthFirstName(response);
+			return;
+		case 5:
+			int rating;
+			try {
+				rating = Integer.parseInt(response);
+			} catch (NumberFormatException e) {
+				System.out.println("Rating must be an integer.");
+				e.printStackTrace();
+				return;
+			}
+			//patrons.returnBooksByRating(rating);
+			return;
+		default:
+			System.out.println("Unrecognized input.");
+			return;
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

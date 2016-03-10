@@ -14,7 +14,7 @@ public class AddMenu extends Menu {
 		this.options.add("Enter the first name: ");
 		this.options.add("Enter the street address: ");
 		this.options.add("Enter the city: ");
-		this.options.add("Enter the state: ");
+		this.options.add("Enter the state(XX): ");
 		this.options.add("Enter the zipcode: ");
 	}
 	

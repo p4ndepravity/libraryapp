@@ -44,7 +44,7 @@ public class PatronsDB {
 		}
 	}
 	
-	public void display() throws SQLException {
+	public void displayAll() throws SQLException {
 		String fname;
 		String lname;
 		
@@ -53,6 +53,52 @@ public class PatronsDB {
 			lname = rs.getString("last_name");
 			System.out.println(fname + " " + lname);
 		}
+	}
+	
+	public void displaySelected(String id) throws SQLException {
+		String query = "select * from patrons where patron_id like '" + id + "'";
+		rs = dbStatement.executeQuery(query);
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
+		while (rs.next()) {
+			System.out.println("ID: " + rs.getString("patron_id"));
+			System.out.format("%s %s\n", rs.getString("first_name"),
+										 rs.getString("last_name"));
+			System.out.format("%s\n%s, %s %s\n", rs.getString("street_address"),
+											 	 rs.getString("city"),
+											 	 rs.getString("state"),
+											 	 rs.getString("zip"));
+			System.out.println("----------------------------");
+		}
+
+		rs = dbStatement.executeQuery("select * from patrons");
+	}
+	
+	public void returnPatronsByLastName(String s) throws SQLException {
+		rs = dbStatement.executeQuery("select * from patrons "
+									+ "where last_name like '%" + s + "%'");
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
+		while (rs.next()) {
+			System.out.println("ID: " + rs.getString("patron_id"));
+			System.out.format("%s %s\n", rs.getString("first_name"),
+										 rs.getString("last_name"));
+			System.out.format("%s\n%s, %s %s\n", rs.getString("street_address"),
+											 	 rs.getString("city"),
+											 	 rs.getString("state"),
+											 	 rs.getString("zip"));
+			System.out.println("----------------------------");
+		}
+		
+		rs = dbStatement.executeQuery("select * from patrons");
 	}
 	
 	public void add(Patron p) throws SQLException {

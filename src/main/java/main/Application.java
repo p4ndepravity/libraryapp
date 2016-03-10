@@ -24,6 +24,8 @@ public class Application {
 		int mainChoice = 0;
 		do {
 			int secondChoice = 0;
+			int searchFieldIndex;
+			String response;
 			MainMenu m = new MainMenu();
 			m.showOptions();
 			mainChoice = m.choose();
@@ -50,9 +52,9 @@ public class Application {
 				case 2:
 					SearchMenu bsm = new SearchMenu(bm);
 					bsm.showOptions();
-					int searchFieldIndex = bsm.choose();
+					searchFieldIndex = bsm.choose();
 					if (searchFieldIndex > 5 || searchFieldIndex < 1) break;
-					String response = bsm.respond(searchFieldIndex);
+					response = bsm.respond(searchFieldIndex);
 					bsm.printResults(searchFieldIndex, response, books);
 					break;
 					
@@ -102,7 +104,12 @@ public class Application {
 
 				// Search for patrons menu
 				case 2:
-					//TODO
+					SearchMenu psm = new SearchMenu(pm);
+					psm.showOptions();
+					searchFieldIndex = psm.choose();
+					if (searchFieldIndex < 1 || searchFieldIndex > 7) break;
+					response = psm.respond(searchFieldIndex);
+					psm.printResults(searchFieldIndex, response, patrons);
 					break;
 					
 				// Change a patron menu	

@@ -114,6 +114,7 @@ public class BooksDB {
 			author = rs.getString("author_first_name") + " " 
 				   + rs.getString("author_last_name");
 			System.out.println(title + " by " + author);
+			System.out.println("----------------------------");
 		}
 	}
 
@@ -127,12 +128,12 @@ public class BooksDB {
 		rs.previous();
 		
 		while (rs.next()) {
-			System.out.println("id: " + rs.getString("book_id"));
-			System.out.println("title: " + rs.getString("title"));
+			System.out.println("ID: " + rs.getString("book_id"));
+			System.out.println("Title: " + rs.getString("title"));
 			String author = rs.getString("author_first_name") + " " 
 						  + rs.getString("author_last_name");
-			System.out.println("author: " + author);
-			System.out.println("rating: " + rs.getString("rating"));
+			System.out.println("Author: " + author);
+			System.out.println("Rating: " + rs.getString("rating"));
 		}
 
 		rs = dbStatement.executeQuery("select * from Books "
@@ -177,6 +178,7 @@ public class BooksDB {
 			author = rs.getString("author_first_name") + " " 
 				   + rs.getString("author_last_name");
 			System.out.println(id + " " + title + " by " + author);
+			System.out.println("----------------------------");
 		}
 	}
 
@@ -199,6 +201,7 @@ public class BooksDB {
 			author = rs.getString("author_first_name") + " " 
 				   + rs.getString("author_last_name");
 			System.out.println(id + " " + title + " by " + author);
+			System.out.println("----------------------------");
 		}
 	}
 
@@ -221,6 +224,7 @@ public class BooksDB {
 			author = rs.getString("author_first_name") + " " 
 				   + rs.getString("author_last_name");
 			System.out.println(id + " " + title + " by " + author);
+			System.out.println("----------------------------");
 		}
 	}
 	
@@ -243,6 +247,7 @@ public class BooksDB {
 			author = rs.getString("author_first_name") + " " 
 				   + rs.getString("author_last_name");
 			System.out.println(id + " " + title + " by " + author);
+			System.out.println("----------------------------");
 		}
 	}
 	
