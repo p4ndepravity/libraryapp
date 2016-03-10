@@ -12,6 +12,7 @@ public class PatronsDB {
 	private Connection dbConnection = null;
 	private Statement dbStatement = null;
 	private ResultSet rs = null;
+	private int count = 0;
 	
 	public PatronsDB() throws Exception {
 
@@ -49,6 +50,19 @@ public class PatronsDB {
 			fname = rs.getString("first_name");
 			lname = rs.getString("last_name");
 			System.out.println(fname + " " + lname);
+		}
+	}
+	
+	public void delete(String s) throws SQLException {
+		int rowsAffected;
+		try {
+			rowsAffected = dbStatement.executeUpdate("delete from patrons where patron_id='" + s + "'");
+			count--;
+			System.out.println(rowsAffected > 0 ? "Successfully deleted patron." 
+							 : "patron with id " + s + " not found.");
+		} catch (Exception e) {
+			System.out.println("Failed to delete patron.");
+			e.printStackTrace();
 		}
 	}
 	

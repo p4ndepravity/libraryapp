@@ -19,14 +19,15 @@ public class Application {
 		 */
 
 		BooksDB books = new BooksDB();
-		int choice = 0;
-
+		PatronsDB patrons = new PatronsDB();
+		
+		int mainChoice = 0;
 		do {
-			int choice2 = 0;
+			int secondChoice = 0;
 			MainMenu m = new MainMenu();
 			m.showOptions();
-			choice = m.choose();
-			switch (choice) {
+			mainChoice = m.choose();
+			switch (mainChoice) {
 			
 			//////////////////////////////////////////////////////
 			//	Books Menu										//
@@ -35,46 +36,46 @@ public class Application {
 				BooksMenu bm = new BooksMenu();
 				String bookid;
 				bm.showOptions();
-				choice2 = bm.choose();
-				switch (choice2) {
+				secondChoice = bm.choose();
+				switch (secondChoice) {
 				
 				// Add books menu
 				case 1:
-					AddMenu am = new AddMenu(bm);
-					Book b = new Book(am.askOptions());
+					AddMenu bam = new AddMenu(bm);
+					Book b = new Book(bam.askOptions());
 					books.add(b);
 					break;
 				
 				// Search for books menu
 				case 2:
-					SearchMenu sm = new SearchMenu(bm);
-					sm.showOptions();
-					int searchFieldIndex = sm.choose();
+					SearchMenu bsm = new SearchMenu(bm);
+					bsm.showOptions();
+					int searchFieldIndex = bsm.choose();
 					if (searchFieldIndex > 5 || searchFieldIndex < 1) break;
-					String response = sm.respond(searchFieldIndex);
-					sm.printResults(searchFieldIndex, response, books);
+					String response = bsm.respond(searchFieldIndex);
+					bsm.printResults(searchFieldIndex, response, books);
 					break;
 					
 				// Change a book menu
 				case 3:
-					ChangeMenu cm = new ChangeMenu(bm);
-					bookid = cm.askOptions().get(0);
-					cm.showOptions();
-					int columnNum = cm.choose();
+					ChangeMenu bcm = new ChangeMenu(bm);
+					bookid = bcm.askOptions().get(0);
+					bcm.showOptions();
+					int columnNum = bcm.choose();
 					if (columnNum > 6 || columnNum < 1) break;
-					String newValue = cm.respond(columnNum+1);
+					String newValue = bcm.respond(columnNum+1);
 					books.change(bookid, columnNum, newValue);
 					break;
 					
 				// Delete a book menu
 				case 4:
-					DeleteMenu dm = new DeleteMenu(bm);
-					bookid = dm.askOptions().get(0);
+					DeleteMenu bdm = new DeleteMenu(bm);
+					bookid = bdm.askOptions().get(0);
 					books.delete(bookid);
 					break;
 					
 				case 5:
-					choice2 = -1;
+					secondChoice = -1;
 					break;
 				default:
 					System.out.println("Unrecognized input.");
@@ -87,8 +88,40 @@ public class Application {
 			//////////////////////////////////////////////////////
 			case 2:
 				PatronsMenu pm = new PatronsMenu();
+				String patronid;
 				pm.showOptions();
-				choice2 = pm.choose();
+				secondChoice = pm.choose();
+				switch (secondChoice) {
+				
+				// Add patron menu
+				case 1:
+					//TODO
+					break;
+
+				// Search for patrons menu
+				case 2:
+					//TODO
+					break;
+					
+				// Change a patron menu	
+				case 3:
+					//TODO
+					break;
+					
+				// Delete a patron menu
+				case 4:
+					DeleteMenu pdm = new DeleteMenu(pm);
+					patronid = pdm.askOptions().get(0);
+					patrons.delete(patronid);
+					break;
+					
+				case 5:
+					secondChoice = -1;
+					break;
+				default:
+					System.out.println("Unrecognized input.");
+					break;
+				}
 				break;
 				
 			//////////////////////////////////////////////////////
@@ -97,19 +130,19 @@ public class Application {
 			case 3:
 				TransactionsMenu tm = new TransactionsMenu();
 				tm.showOptions();
-				choice2 = tm.choose();
+				secondChoice = tm.choose();
 				break;
 				
 			case 4:
 				System.out.println("Exiting.");
-				choice = 0;
+				mainChoice = 0;
 				break;
 			default:
 				System.out.println("Unrecognized input.");
-				choice = -1;
+				mainChoice = -1;
 				break;
 			}
-		} while (choice != 0);
+		} while (mainChoice != 0);
 
 	}
 

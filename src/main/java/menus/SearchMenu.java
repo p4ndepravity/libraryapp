@@ -53,22 +53,30 @@ public class SearchMenu extends Menu {
 		switch (choice) {
 		case 1:
 			books.displaySelected(response);
-			break;
+			return;
 		case 2:
 			books.returnBooksByTitle(response);
-			break;
+			return;
 		case 3:
 			books.returnBooksByAuthLastName(response);
-			break;
+			return;
 		case 4:
 			books.returnBooksByAuthFirstName(response);
-			break;
+			return;
 		case 5:
-			books.returnBooksByRating(Integer.parseInt(response));
-			break;
+			int rating;
+			try {
+				rating = Integer.parseInt(response);
+			} catch (NumberFormatException e) {
+				System.out.println("Rating must be an integer.");
+				e.printStackTrace();
+				return;
+			}
+			books.returnBooksByRating(rating);
+			return;
 		default:
 			System.out.println("Unrecognized input.");
-			break;
+			return;
 		}
 	}
 }
