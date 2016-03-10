@@ -264,7 +264,16 @@ public class BooksDB {
 	}
 	
 	public void delete(String s) throws SQLException {
-		dbStatement.executeUpdate("delete from Books where book_id='" + s + "'");
+		int rowsAffected;
+		try {
+			rowsAffected = dbStatement.executeUpdate("delete from Books where book_id='" + s + "'");
+			count--;
+			System.out.println(rowsAffected > 0 ? "Successfully deleted book." 
+							 : "Book with id " + s + " not found.");
+		} catch (Exception e) {
+			System.out.println("Failed to delete book.");
+			e.printStackTrace();
+		}
 	}
 
 	public void close() throws SQLException {

@@ -33,6 +33,7 @@ public class Application {
 			//////////////////////////////////////////////////////
 			case 1:
 				BooksMenu bm = new BooksMenu();
+				String bookid;
 				bm.showOptions();
 				choice2 = bm.choose();
 				switch (choice2) {
@@ -57,7 +58,7 @@ public class Application {
 				// Change a book menu
 				case 3:
 					ChangeMenu cm = new ChangeMenu(bm);
-					String bookid = cm.askOptions().get(0);
+					bookid = cm.askOptions().get(0);
 					cm.showOptions();
 					int columnNum = cm.choose();
 					if (columnNum > 6 || columnNum < 1) break;
@@ -67,10 +68,16 @@ public class Application {
 					
 				// Delete a book menu
 				case 4:
-					//TODO
+					DeleteMenu dm = new DeleteMenu(bm);
+					bookid = dm.askOptions().get(0);
+					books.delete(bookid);
 					break;
 					
+				case 5:
+					choice2 = -1;
+					break;
 				default:
+					System.out.println("Unrecognized input.");
 					break;
 				}
 				break;
