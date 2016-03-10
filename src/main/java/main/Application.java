@@ -172,6 +172,11 @@ public class Application {
 				// Search for transactions menu
 				case 2:
 					SearchMenu tsm = new SearchMenu(tm);
+					tsm.showOptions();
+					searchFieldIndex = tsm.choose();
+					if (searchFieldIndex < 1 || searchFieldIndex > 5) break;
+					response = tsm.respond(searchFieldIndex);
+					tsm.printResults(searchFieldIndex, response, transactions);
 					break;
 				
 				// Change a transaction menu

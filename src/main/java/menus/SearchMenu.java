@@ -1,6 +1,10 @@
 package menus;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import data.*;
 
@@ -32,7 +36,7 @@ public class SearchMenu extends Menu {
 		this.options.add("ID");
 		this.options.add("Patron ID");
 		this.options.add("Book ID");
-		this.options.add("Date");
+		this.options.add("Date (mm-dd-yyyy)");
 		this.options.add("Type");
 		this.options.add("Return to previous menu");
 	}
@@ -45,9 +49,7 @@ public class SearchMenu extends Menu {
 		}
 	}
 
-	public void printResults(int choice, 
-							 String response, 
-							 BooksDB books) throws SQLException {
+	public void printResults(int choice, String response, BooksDB books) throws SQLException {
 		switch (choice) {
 		case 1:
 			books.displaySelected(response);
@@ -78,9 +80,7 @@ public class SearchMenu extends Menu {
 		}
 	}
 
-	public void printResults(int choice, 
-							 String response, 
-							 PatronsDB patrons) throws SQLException {
+	public void printResults(int choice, String response, PatronsDB patrons) throws SQLException {
 		switch (choice) {
 		case 1:
 			patrons.displaySelected(response);
@@ -102,6 +102,37 @@ public class SearchMenu extends Menu {
 			return;
 		case 7:
 			patrons.returnPatronsByZip(response);
+		default:
+			System.out.println("Unrecognized input.");
+			return;
+		}
+	}
+
+	public void printResults(int choice, String response, TransactionsDB transactions) throws SQLException {
+		switch (choice) {
+		case 1:
+			transactions.displaySelected(response);
+			return;
+		case 2:
+			transactions.returnTransactionsByPatron(response);
+			return;
+		case 3:
+			transactions.returnTransactionsByBook(response);
+			return;
+		case 4:
+			final DateFormat df_user = new SimpleDateFormat("MM-dd-yyyy");
+			final DateFormat df_out = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date d = df_user.parse(response);
+				response = df_out.format(d);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			transactions.returnTransactionsByDate(response);
+			return;
+		case 5:
+			transactions.returnTransactionsByType(response);
+			return;
 		default:
 			System.out.println("Unrecognized input.");
 			return;
