@@ -35,21 +35,12 @@ public class Application {
 			switch (mainChoice) {
 			
 			//////////////////////////////////////////////////////
-			//	Check-out Menu									//
+			//	Check out/in Menu								//
 			//////////////////////////////////////////////////////
-			case 1:
+			case 1: case 2:
 				InOutMenu checkout = new InOutMenu(mainChoice);
 				Transaction new_t_out = new Transaction(checkout.askOptions());
 				transactions.add(new_t_out);
-				break;
-			
-			//////////////////////////////////////////////////////
-			//	Check-in Menu									//
-			//////////////////////////////////////////////////////
-			case 2:
-				InOutMenu checkin = new InOutMenu(mainChoice);
-				Transaction new_t_in = new Transaction(checkin.askOptions());
-				transactions.add(new_t_in);
 				break;
 			
 			//////////////////////////////////////////////////////
