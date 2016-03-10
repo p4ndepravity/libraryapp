@@ -8,11 +8,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import models.Book;
+import models.Patron;
+
 public class PatronsDB {
 	private Connection dbConnection = null;
 	private Statement dbStatement = null;
 	private ResultSet rs = null;
-	private int count = 0;
+	public static int count = 0;
 	
 	public PatronsDB() throws Exception {
 
@@ -34,8 +37,7 @@ public class PatronsDB {
 			dbStatement = dbConnection.createStatement();
 
 			// Execute the SQL query
-			rs = dbStatement.executeQuery("select * from Patrons "
-										+ "order by patron_id desc");
+			rs = dbStatement.executeQuery("select * from patrons");
 
 		} catch (Exception exc) {
 			exc.printStackTrace();
@@ -53,6 +55,26 @@ public class PatronsDB {
 		}
 	}
 	
+	public void add(Patron p) throws SQLException {
+		String s = "insert into library.patrons "
+				 + "(last_name,first_name,street_address,city,state,zip) "
+				 + "values ('" + p.lastName25() + "',"
+				 		 + "'" + p.firstName25() + "',"
+				 		 + "'" + p.streetAddress40() + "',"
+				 		 + "'" + p.city25() + "',"
+				 		 + "'" + p.getState() + "',"
+				 		 + "'" + p.zip10() + "')";
+		try {
+			dbStatement.executeUpdate(s);
+			count++;
+			System.out.println("Successfully added " + p.toString());
+		} catch (Exception e) {
+			System.out.println("Failed to add patron");
+			e.getMessage();
+		}
+		rs = dbStatement.executeQuery("select * from patrons");
+	}
+	
 	public void delete(String s) throws SQLException {
 		int rowsAffected;
 		try {
@@ -64,6 +86,7 @@ public class PatronsDB {
 			System.out.println("Failed to delete patron.");
 			e.printStackTrace();
 		}
+		rs = dbStatement.executeQuery("select * from patrons");
 	}
 	
 	public void close() throws SQLException {

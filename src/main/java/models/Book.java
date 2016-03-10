@@ -17,26 +17,14 @@ public class Book {
 		setRating(5);
 	}
 	
-	public Book(String id, 
-				String title, 
-				String authorLastName, 
-				String authorFirstName, 
-				int rating) {
-		this.id = id;
-		this.title = title;
-		this.authorLastName = authorLastName;
-		this.authorFirstName = authorFirstName;
-		this.rating = rating;
-	}
-	
-	public Book(List<String> list) {
-		if (list.isEmpty()) return;
-		this.id = list.get(0);
-		this.title = list.get(1);
-		this.authorLastName = list.get(2);
-		this.authorFirstName = list.get(3);
+	public Book(List<String> values) {
+		if (values.isEmpty()) return;
+		this.id = values.get(0);
+		this.title = values.get(1);
+		this.authorLastName = values.get(2);
+		this.authorFirstName = values.get(3);
 		try {
-			this.rating = Integer.parseInt(list.get(4));
+			this.rating = Integer.parseInt(values.get(4));
 		} catch (NumberFormatException e) {
 			this.rating = 5;
 		}
@@ -44,10 +32,6 @@ public class Book {
 
 	public String getid() {
 		return id;
-	}
-	
-	public String id20() {
-		return id.substring(0, Math.min(id.length(), 20));
 	}
 
 	public void setid(String id) {

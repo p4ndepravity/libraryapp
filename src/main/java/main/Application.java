@@ -95,7 +95,9 @@ public class Application {
 				
 				// Add patron menu
 				case 1:
-					//TODO
+					AddMenu pam = new AddMenu(pm);
+					Patron p = new Patron(pam.askOptions());
+					patrons.add(p);
 					break;
 
 				// Search for patrons menu

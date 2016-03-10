@@ -95,7 +95,7 @@ public class BooksDB {
 		}
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "order by author_last_name desc");
-}
+	}
 
 	public void displayAll() throws SQLException {
 		String title;
@@ -265,8 +265,9 @@ public class BooksDB {
 	
 	public void delete(String s) throws SQLException {
 		int rowsAffected;
+		String query = "delete from Books where book_id='" + s + "'";
 		try {
-			rowsAffected = dbStatement.executeUpdate("delete from Books where book_id='" + s + "'");
+			rowsAffected = dbStatement.executeUpdate(query);
 			count--;
 			System.out.println(rowsAffected > 0 ? "Successfully deleted book." 
 							 : "Book with id " + s + " not found.");

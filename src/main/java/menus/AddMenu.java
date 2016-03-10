@@ -10,7 +10,6 @@ public class AddMenu extends Menu {
 	}
 	
 	public AddMenu(PatronsMenu pm) {
-		this.options.add("Enter the ID: ");
 		this.options.add("Enter the last name: ");
 		this.options.add("Enter the first name: ");
 		this.options.add("Enter the street address: ");
@@ -20,7 +19,6 @@ public class AddMenu extends Menu {
 	}
 	
 	public AddMenu(TransactionsMenu tm) {
-		this.options.add("Enter the ID: ");
 		this.options.add("Enter the patron's ID: ");
 		this.options.add("Enter the book's ID: ");
 		this.options.add("Enter the transaction date (mm-dd-yyyy): ");
