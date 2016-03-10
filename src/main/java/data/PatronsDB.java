@@ -80,7 +80,124 @@ public class PatronsDB {
 	
 	public void returnPatronsByLastName(String s) throws SQLException {
 		rs = dbStatement.executeQuery("select * from patrons "
-									+ "where last_name like '%" + s + "%'");
+									+ "where last_name like '%" + s + "%' "
+									+ "order by last_name");
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
+		while (rs.next()) {
+			System.out.println("ID: " + rs.getString("patron_id"));
+			System.out.format("%s %s\n", rs.getString("first_name"),
+										 rs.getString("last_name"));
+			System.out.format("%s\n%s, %s %s\n", rs.getString("street_address"),
+											 	 rs.getString("city"),
+											 	 rs.getString("state"),
+											 	 rs.getString("zip"));
+			System.out.println("----------------------------");
+		}
+		
+		rs = dbStatement.executeQuery("select * from patrons");
+	}
+	
+	public void returnPatronsByFirstName(String s) throws SQLException {
+		rs = dbStatement.executeQuery("select * from patrons "
+									+ "where first_name like '%" + s + "%' "
+									+ "order by last_name");
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
+		while (rs.next()) {
+			System.out.println("ID: " + rs.getString("patron_id"));
+			System.out.format("%s %s\n", rs.getString("first_name"),
+										 rs.getString("last_name"));
+			System.out.format("%s\n%s, %s %s\n", rs.getString("street_address"),
+											 	 rs.getString("city"),
+											 	 rs.getString("state"),
+											 	 rs.getString("zip"));
+			System.out.println("----------------------------");
+		}
+		
+		rs = dbStatement.executeQuery("select * from patrons");
+	}
+	
+	public void returnPatronsByStreetAddress(String s) throws SQLException {
+		rs = dbStatement.executeQuery("select * from patrons "
+									+ "where street_address like '%" + s + "%'");
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
+		while (rs.next()) {
+			System.out.println("ID: " + rs.getString("patron_id"));
+			System.out.format("%s %s\n", rs.getString("first_name"),
+										 rs.getString("last_name"));
+			System.out.format("%s\n%s, %s %s\n", rs.getString("street_address"),
+											 	 rs.getString("city"),
+											 	 rs.getString("state"),
+											 	 rs.getString("zip"));
+			System.out.println("----------------------------");
+		}
+		
+		rs = dbStatement.executeQuery("select * from patrons");
+	}
+	
+	public void returnPatronsByCity(String s) throws SQLException {
+		rs = dbStatement.executeQuery("select * from patrons "
+									+ "where city like '%" + s + "%'");
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
+		while (rs.next()) {
+			System.out.println("ID: " + rs.getString("patron_id"));
+			System.out.format("%s %s\n", rs.getString("first_name"),
+										 rs.getString("last_name"));
+			System.out.format("%s\n%s, %s %s\n", rs.getString("street_address"),
+											 	 rs.getString("city"),
+											 	 rs.getString("state"),
+											 	 rs.getString("zip"));
+			System.out.println("----------------------------");
+		}
+		
+		rs = dbStatement.executeQuery("select * from patrons");
+	}
+	
+	public void returnPatronsByState(String s) throws SQLException {
+		rs = dbStatement.executeQuery("select * from patrons "
+									+ "where state like '%" + s + "%'");
+		if (!rs.next()) {
+			System.out.println("Nothing matching query found in database.");
+			return;
+		}
+		rs.previous();
+		
+		while (rs.next()) {
+			System.out.println("ID: " + rs.getString("patron_id"));
+			System.out.format("%s %s\n", rs.getString("first_name"),
+										 rs.getString("last_name"));
+			System.out.format("%s\n%s, %s %s\n", rs.getString("street_address"),
+											 	 rs.getString("city"),
+											 	 rs.getString("state"),
+											 	 rs.getString("zip"));
+			System.out.println("----------------------------");
+		}
+		
+		rs = dbStatement.executeQuery("select * from patrons");
+	}
+	
+	public void returnPatronsByZip(String s) throws SQLException {
+		rs = dbStatement.executeQuery("select * from patrons "
+									+ "where zip like '%" + s + "%'");
 		if (!rs.next()) {
 			System.out.println("Nothing matching query found in database.");
 			return;

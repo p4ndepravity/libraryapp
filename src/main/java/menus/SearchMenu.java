@@ -89,22 +89,19 @@ public class SearchMenu extends Menu {
 			patrons.returnPatronsByLastName(response);
 			return;
 		case 3:
-			//patrons.returnBooksByAuthLastName(response);
+			patrons.returnPatronsByFirstName(response);
 			return;
 		case 4:
-			//patrons.returnBooksByAuthFirstName(response);
+			patrons.returnPatronsByStreetAddress(response);
 			return;
 		case 5:
-			int rating;
-			try {
-				rating = Integer.parseInt(response);
-			} catch (NumberFormatException e) {
-				System.out.println("Rating must be an integer.");
-				e.printStackTrace();
-				return;
-			}
-			//patrons.returnBooksByRating(rating);
+			patrons.returnPatronsByCity(response);
 			return;
+		case 6:
+			patrons.returnPatronsByState(response);
+			return;
+		case 7:
+			patrons.returnPatronsByZip(response);
 		default:
 			System.out.println("Unrecognized input.");
 			return;
