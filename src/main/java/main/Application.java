@@ -38,7 +38,7 @@ public class Application {
 			//	Check-out Menu									//
 			//////////////////////////////////////////////////////
 			case 1:
-				CheckoutMenu checkout = new CheckoutMenu();
+				InOutMenu checkout = new InOutMenu(mainChoice);
 				Transaction new_t_out = new Transaction(checkout.askOptions());
 				transactions.add(new_t_out);
 				break;
@@ -47,7 +47,7 @@ public class Application {
 			//	Check-in Menu									//
 			//////////////////////////////////////////////////////
 			case 2:
-				CheckinMenu checkin = new CheckinMenu();
+				InOutMenu checkin = new InOutMenu(mainChoice);
 				Transaction new_t_in = new Transaction(checkin.askOptions());
 				transactions.add(new_t_in);
 				break;

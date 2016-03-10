@@ -11,7 +11,8 @@ public class Transaction {
 	private String date_str;
 	private String type;
 	final private DateFormat df_out = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	final private DateFormat df_in = new SimpleDateFormat("MM-dd-yyyy");
+	final private DateFormat df_in = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+	final private DateFormat df_user = new SimpleDateFormat("MM-dd-yyyy");
 	
 	public Transaction(List<String> values) {
 		if (values.isEmpty()) return;
@@ -63,14 +64,19 @@ public class Transaction {
 	}
 	@Override
 	public String toString() {
-		return this.date + " " + this.patronid + " " + this.bookid + " " + this.type;
+		return this.date + " | " + this.patronid + " | " + this.bookid + " | " + this.type;
 	}
 	public void fixDate() {
 		try {
 			date = df_in.parse(date_str);
 			date_str = df_out.format(date);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			try {
+				date = df_user.parse(date_str);
+				date_str = df_out.format(date);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 }
