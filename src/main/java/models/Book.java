@@ -90,30 +90,4 @@ public class Book {
 	public String toString() {
 		return this.title + " by " + this.authorFirstName + " " + this.authorLastName;
 	}
-	
-	public void change(int index, String value) {
-		switch (index) {
-		case 1:
-			this.id = value;
-			break;
-		case 2:
-			this.title = value;
-			break;
-		case 3:
-			this.authorLastName = value;
-			break;
-		case 4:
-			this.authorFirstName = value;
-			break;
-		case 5:
-			try {
-				this.rating = Integer.parseInt(value);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			}
-			break;
-		default:
-			break;
-		}
-	}
 }

@@ -1,11 +1,7 @@
 package data;
 
 import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 import models.Book;
@@ -54,31 +50,8 @@ public class BooksDB {
 
 	}
 
-	public void add(String id, 
-					String title, 
-					String authLName, 
-					String authFName, 
-					int rating) throws SQLException {
-		String s = "insert into library.books "
-				+ "(book_id,title,author_last_name,author_first_name,rating) "
-				+ "values ('" + id + "',"
-						+ "'" + title + "',"
-						+ "'" + authLName + "',"
-						+ "'" + authFName + "',"
-							  + rating + ")";
-		try {
-			dbStatement.executeUpdate(s);
-			count++;
-		} catch (Exception e) {
-			System.out.println("Failed to add book.");
-			e.printStackTrace();
-		}
-		rs = dbStatement.executeQuery("select * from Books "
-									+ "order by author_last_name desc");
-	}
-	
 	public void add(Book b) throws SQLException {
-		String s = "insert into library.books "
+		String s = "insert into books "
 				 + "(book_id,title,author_last_name,author_first_name,rating) "
 				 + "values ('" + b.getid() + "',"
 				 		 + "'" + b.title50() + "',"
@@ -88,7 +61,7 @@ public class BooksDB {
 		try {
 			dbStatement.executeUpdate(s);
 			count++;
-			System.out.println("Added book with ID  " + b.getid());
+			System.out.println("Added book with ID " + b.getid());
 		} catch (Exception e) {
 			System.out.println("Failed to add Book");
 			e.getMessage();

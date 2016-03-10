@@ -22,6 +22,6 @@ public class AddMenu extends Menu {
 		this.options.add("Enter the patron's ID: ");
 		this.options.add("Enter the book's ID: ");
 		this.options.add("Enter the transaction date (mm-dd-yyyy): ");
-		this.options.add("Enter the transaction type (1-7): ");
+		this.options.add("Enter the transaction type (1=in 2=out): ");
 	}
 }

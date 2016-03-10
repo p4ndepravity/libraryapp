@@ -20,6 +20,7 @@ public class Application {
 
 		BooksDB books = new BooksDB();
 		PatronsDB patrons = new PatronsDB();
+		TransactionsDB transactions = new TransactionsDB();
 		
 		int mainChoice = 0;
 		do {
@@ -34,9 +35,27 @@ public class Application {
 			switch (mainChoice) {
 			
 			//////////////////////////////////////////////////////
-			//	Books Menu										//
+			//	Check-out Menu									//
 			//////////////////////////////////////////////////////
 			case 1:
+				CheckoutMenu checkout = new CheckoutMenu();
+				Transaction new_t_out = new Transaction(checkout.askOptions());
+				transactions.add(new_t_out);
+				break;
+			
+			//////////////////////////////////////////////////////
+			//	Check-in Menu									//
+			//////////////////////////////////////////////////////
+			case 2:
+				CheckinMenu checkin = new CheckinMenu();
+				Transaction new_t_in = new Transaction(checkin.askOptions());
+				transactions.add(new_t_in);
+				break;
+			
+			//////////////////////////////////////////////////////
+			//	Books Menu										//
+			//////////////////////////////////////////////////////
+			case 3:
 				BooksMenu bm = new BooksMenu();
 				String bookid;
 				bm.showOptions();
@@ -90,7 +109,7 @@ public class Application {
 			//////////////////////////////////////////////////////
 			//	Patrons Menu									//
 			//////////////////////////////////////////////////////
-			case 2:
+			case 4:
 				PatronsMenu pm = new PatronsMenu();
 				String patronid;
 				pm.showOptions();
@@ -138,6 +157,7 @@ public class Application {
 					break;
 				default:
 					System.out.println("Unrecognized input.");
+					secondChoice = 0;
 					break;
 				}
 				break;
@@ -145,13 +165,45 @@ public class Application {
 			//////////////////////////////////////////////////////
 			//	Transactions Menu								//
 			//////////////////////////////////////////////////////
-			case 3:
+			case 5:
 				TransactionsMenu tm = new TransactionsMenu();
 				tm.showOptions();
 				secondChoice = tm.choose();
+				switch (secondChoice) {
+				
+				// Add transaction menu
+				case 1:
+					AddMenu tam = new AddMenu(tm);
+					Transaction t = new Transaction(tam.askOptions());
+					transactions.add(t);
+					break;
+				
+				// Search for transactions menu
+				case 2:
+					SearchMenu tsm = new SearchMenu(tm);
+					break;
+				
+				// Change a transaction menu
+				case 3:
+					ChangeMenu tcm = new ChangeMenu(tm);
+					break;
+				
+				// Delete a transaction menu
+				case 4:
+					DeleteMenu tdm = new DeleteMenu(tm);
+					break;
+				
+				case 5:
+					secondChoice = -1;
+					break;
+				default:
+					System.out.println("Unrecognized input.");
+					secondChoice = 0;
+					break;
+				}
 				break;
 				
-			case 4:
+			case 6:
 				System.out.println("Exiting.");
 				mainChoice = 0;
 				break;
