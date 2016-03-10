@@ -22,7 +22,7 @@ public class SearchMenu extends Menu {
 		this.options.add("First name");
 		this.options.add("Street Address");
 		this.options.add("City");
-		this.options.add("State");
+		this.options.add("State (XX)");
 		this.options.add("Zipcode");
 		this.options.add("Return to previous menu");
 	}
