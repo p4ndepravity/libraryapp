@@ -25,6 +25,8 @@ public class Application {
 		do {
 			int secondChoice = 0;
 			int searchFieldIndex;
+			int columnNum;
+			String newValue;
 			String response;
 			MainMenu m = new MainMenu();
 			m.showOptions();
@@ -63,9 +65,9 @@ public class Application {
 					ChangeMenu bcm = new ChangeMenu(bm);
 					bookid = bcm.askOptions().get(0);
 					bcm.showOptions();
-					int columnNum = bcm.choose();
+					columnNum = bcm.choose();
 					if (columnNum > 6 || columnNum < 1) break;
-					String newValue = bcm.respond(columnNum+1);
+					newValue = bcm.respond(columnNum+1);
 					books.change(bookid, columnNum, newValue);
 					break;
 					
@@ -114,7 +116,14 @@ public class Application {
 					
 				// Change a patron menu	
 				case 3:
-					//TODO
+					ChangeMenu pcm = new ChangeMenu(pm);
+					patronid = pcm.askOptions().get(0);
+					pcm.showOptions();
+					columnNum = pcm.choose();
+					if (columnNum < 1 || columnNum > 6) break;
+					newValue = pcm.respond(columnNum+1);
+					if (columnNum == 5) newValue = newValue.toUpperCase();
+					patrons.change(patronid, columnNum, newValue);
 					break;
 					
 				// Delete a patron menu

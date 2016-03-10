@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import models.Book;
@@ -15,9 +17,16 @@ public class PatronsDB {
 	private Connection dbConnection = null;
 	private Statement dbStatement = null;
 	private ResultSet rs = null;
+	private List<String> columnNames = new ArrayList<String>();
 	public static int count = 0;
 	
 	public PatronsDB() throws Exception {
+		columnNames.add("last_name");
+		columnNames.add("first_name");
+		columnNames.add("street_address");
+		columnNames.add("city");
+		columnNames.add("state");
+		columnNames.add("zip");
 
 		try {
 			// Load the properties file
@@ -238,6 +247,22 @@ public class PatronsDB {
 		rs = dbStatement.executeQuery("select * from patrons");
 	}
 	
+	public void change(String patronid, 
+					   int columnNum, 
+					   String newValue) throws SQLException {
+		String query = "update patrons set " + columnName(columnNum-1) + "='" + newValue + "' "
+				 + "where patron_id='" + patronid + "'";
+		try {
+			dbStatement.executeUpdate(query);
+			System.out.println("Patron successfully updated.");
+		} catch (Exception e) {
+			System.out.println("Failed to update patron.");
+			e.printStackTrace();
+		}
+	
+		rs = dbStatement.executeQuery("select * from patrons");
+	}
+	
 	public void delete(String s) throws SQLException {
 		int rowsAffected;
 		try {
@@ -264,5 +289,9 @@ public class PatronsDB {
 		if (dbConnection != null) {
 			dbConnection.close();
 		}
+	}
+	
+	private String columnName(int index) {
+		return columnNames.get(index);
 	}
 }

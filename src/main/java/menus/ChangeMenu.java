@@ -16,27 +16,25 @@ public class ChangeMenu extends Menu {
 	}
 	
 	public ChangeMenu(PatronsMenu pm) {
-		/* TODO
-		this.options.add("Enter the book's ID: ");
+		this.options.add("Enter the patron's ID: ");
 		this.options.add("Which column?");
-		this.options.add("1. Title");
-		this.options.add("2. Author's first name");
-		this.options.add("3. Author's last name");
-		this.options.add("4. Rating");
-		this.options.add("5. Main Menu");
-		*/
+		this.options.add("Last name");
+		this.options.add("First name");
+		this.options.add("Street address");
+		this.options.add("City");
+		this.options.add("State (XX)");
+		this.options.add("Zipcode");
+		this.options.add("Main Menu");
 	}
 	
 	public ChangeMenu(TransactionsMenu tm) {
-		/* TODO
 		this.options.add("Enter the book's ID: ");
 		this.options.add("Which column?");
-		this.options.add("1. Title");
-		this.options.add("2. Author's first name");
-		this.options.add("3. Author's last name");
-		this.options.add("4. Rating");
-		this.options.add("5. Main Menu");
-		*/
+		this.options.add("Patron ID");
+		this.options.add("Book ID");
+		this.options.add("Transaction Date");
+		this.options.add("Transaction Type");
+		this.options.add("Main Menu");
 	}
 
 	@Override
