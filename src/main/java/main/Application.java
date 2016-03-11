@@ -195,7 +195,8 @@ public class Application {
 				// Delete a transaction menu
 				case 4:
 					DeleteMenu tdm = new DeleteMenu(tm);
-					// TODO
+					transactionid = tdm.askOptions().get(0);
+					transactions.delete(transactionid);
 					break;
 				
 				case 5:

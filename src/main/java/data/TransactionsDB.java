@@ -211,6 +211,21 @@ public class TransactionsDB {
 		rs = dbStatement.executeQuery("select * from transactions");
 	}
 	
+	public void delete(String s) throws SQLException {
+		int rowsAffected;
+		String query = "delete from transactions where transaction_id='" + s + "'";
+		try {
+			rowsAffected = dbStatement.executeUpdate(query);
+			count--;
+			System.out.println(rowsAffected > 0 ? "Successfully deleted transaction." 
+							 : "transaction with id " + s + " not found.");
+		} catch (Exception e) {
+			System.out.println("Failed to delete transaction.");
+			e.printStackTrace();
+			System.out.println("\n\n");
+		}
+	}
+	
 	private String columnName(int index) {
 		return columnNames.get(index);
 	}
