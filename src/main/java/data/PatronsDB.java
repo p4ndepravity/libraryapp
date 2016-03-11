@@ -49,7 +49,9 @@ public class PatronsDB {
 			rs = dbStatement.executeQuery("select * from patrons");
 
 		} catch (Exception exc) {
+			System.out.println("Failed to connect to database.");
 			exc.printStackTrace();
+			System.out.println("\n\n");
 		}
 	}
 	
@@ -243,6 +245,7 @@ public class PatronsDB {
 		} catch (Exception e) {
 			System.out.println("Failed to add patron");
 			e.getMessage();
+			System.out.println("\n\n");
 		}
 		rs = dbStatement.executeQuery("select * from patrons");
 	}
@@ -258,6 +261,7 @@ public class PatronsDB {
 		} catch (Exception e) {
 			System.out.println("Failed to update patron.");
 			e.printStackTrace();
+			System.out.println("\n\n");
 		}
 	
 		rs = dbStatement.executeQuery("select * from patrons");
@@ -273,6 +277,7 @@ public class PatronsDB {
 		} catch (Exception e) {
 			System.out.println("Failed to delete patron.");
 			e.printStackTrace();
+			System.out.println("\n\n");
 		}
 		rs = dbStatement.executeQuery("select * from patrons");
 	}

@@ -40,9 +40,10 @@ public class TransactionsDB {
 			while (rs.next()) {
 				count++;
 			}
-			
 		} catch (Exception e) {
+			System.out.println("Unable to connect to the database.");
 			e.printStackTrace();
+			System.out.println("\n\n");
 		}
 
 	}
@@ -72,8 +73,8 @@ public class TransactionsDB {
 		try {
 			id = Integer.parseInt(s);
 		} catch (NumberFormatException e) {
-			
 			e.printStackTrace();
+			System.out.println("\n\n");
 		}
 		rs = dbStatement.executeQuery("select * from transactions "
 									+ "where patron_id like '" + id + "' "
@@ -149,8 +150,8 @@ public class TransactionsDB {
 		try {
 			id = Integer.parseInt(s);
 		} catch (NumberFormatException e) {
-			
 			e.printStackTrace();
+			System.out.println("\n\n");
 		}
 		rs = dbStatement.executeQuery("select * from transactions "
 									+ "where transaction_type like '" + id + "' "
@@ -187,9 +188,31 @@ public class TransactionsDB {
 		} catch (Exception e) {
 			System.out.println("Failed to add Book");
 			e.printStackTrace();
+			System.out.println("\n\n");
 		}
 		
 		rs = dbStatement.executeQuery("select * from transactions");
+	}
+	
+	public void change(String id, 
+			   		   int colNum, 
+			   		   String newValue) throws SQLException {
+		String query = "update transactions set " + columnName(colNum-1) + "='" + newValue + "' "
+					 + "where transaction_id='" + id + "'";
+		try {
+			dbStatement.executeUpdate(query);
+			System.out.println("Transaction successfully updated.");
+		} catch (Exception e) {
+			System.out.println("Failed to update transaction.");
+			e.printStackTrace();
+			System.out.println("\n\n");
+		}
+
+		rs = dbStatement.executeQuery("select * from transactions");
+	}
+	
+	private String columnName(int index) {
+		return columnNames.get(index);
 	}
 }
 

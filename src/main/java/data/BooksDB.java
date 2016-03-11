@@ -43,9 +43,10 @@ public class BooksDB {
 			while (rs.next()) {
 				count++;
 			}
-	
 		} catch (Exception exc) {
+			System.out.println("Failed to connect to database.");
 			exc.printStackTrace();
+			System.out.println("\n\n");
 		}
 
 	}
@@ -65,6 +66,7 @@ public class BooksDB {
 		} catch (Exception e) {
 			System.out.println("Failed to add Book");
 			e.getMessage();
+			System.out.println("\n\n");
 		}
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "order by author_last_name desc");
@@ -235,6 +237,7 @@ public class BooksDB {
 		} catch (Exception e) {
 			System.out.println("Failed to update book.");
 			e.printStackTrace();
+			System.out.println("\n\n");
 		}
 
 		rs = dbStatement.executeQuery("select * from Books "
@@ -252,6 +255,7 @@ public class BooksDB {
 		} catch (Exception e) {
 			System.out.println("Failed to delete book.");
 			e.printStackTrace();
+			System.out.println("\n\n");
 		}
 	}
 

@@ -158,6 +158,7 @@ public class Application {
 			//////////////////////////////////////////////////////
 			case 5:
 				TransactionsMenu tm = new TransactionsMenu();
+				String transactionid;
 				tm.showOptions();
 				secondChoice = tm.choose();
 				switch (secondChoice) {
@@ -182,11 +183,19 @@ public class Application {
 				// Change a transaction menu
 				case 3:
 					ChangeMenu tcm = new ChangeMenu(tm);
+					transactionid = tcm.askOptions().get(0);
+					tcm.showOptions();
+					columnNum = tcm.choose();
+					if (columnNum < 1 || columnNum > 5) break;
+					newValue = tcm.respond(columnNum+1);
+					if (columnNum == 3) newValue = tcm.fixDate(newValue);
+					transactions.change(transactionid, columnNum, newValue);
 					break;
 				
 				// Delete a transaction menu
 				case 4:
 					DeleteMenu tdm = new DeleteMenu(tm);
+					// TODO
 					break;
 				
 				case 5:
