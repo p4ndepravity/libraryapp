@@ -3,7 +3,7 @@ package models;
 import java.text.*;
 import java.util.*;
 
-public class Transaction {
+public class Transaction extends LogicalModel {
 	private String id;
 	private String patronid;
 	private String bookid;
@@ -78,5 +78,21 @@ public class Transaction {
 				e1.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public String getid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getValues() {
+		List<String> values = new ArrayList<String>();
+		values.add(this.getPatronid());
+		values.add(this.getBookid());
+		values.add(this.getDate_str());
+		values.add(this.getType());
+		return values;
 	}
 }

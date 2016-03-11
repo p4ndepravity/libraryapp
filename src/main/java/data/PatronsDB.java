@@ -1,58 +1,20 @@
 package data;
 
-import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import models.Book;
+import java.sql.*;
 import models.Patron;
 
-public class PatronsDB {
-	private Connection dbConnection = null;
-	private Statement dbStatement = null;
-	private ResultSet rs = null;
-	private List<String> columnNames = new ArrayList<String>();
+public class PatronsDB extends DBModel {
 	public static int count = 0;
 	
 	public PatronsDB() throws Exception {
-		columnNames.add("last_name");
-		columnNames.add("first_name");
-		columnNames.add("street_address");
-		columnNames.add("city");
-		columnNames.add("state");
-		columnNames.add("zip");
-
-		try {
-			// Load the properties file
-			Properties props = new Properties();
-			props.load(new FileInputStream("db.properties"));
-
-			// Read the props
-			String theUser = props.getProperty("user");
-			String thePassword = props.getProperty("password");
-			String theDburl = props.getProperty("dburl");
-			
-			dbConnection = DriverManager.getConnection(theDburl, 
-													   theUser, 
-													   thePassword);
-
-			// Create the statement
-			dbStatement = dbConnection.createStatement();
-
-			// Execute the SQL query
-			rs = dbStatement.executeQuery("select * from patrons");
-
-		} catch (Exception exc) {
-			System.out.println("Failed to connect to database.");
-			exc.printStackTrace();
-			System.out.println("\n\n");
+		super("patrons");
+		while (rs.next()) {
+			count++;
 		}
+	}
+	
+	public static int getCount() {
+		return count;
 	}
 	
 	public void displayAll() throws SQLException {
@@ -229,27 +191,6 @@ public class PatronsDB {
 		rs = dbStatement.executeQuery("select * from patrons");
 	}
 	
-	public void add(Patron p) throws SQLException {
-		String s = "insert into library.patrons "
-				 + "(last_name,first_name,street_address,city,state,zip) "
-				 + "values ('" + p.lastName25() + "',"
-				 		 + "'" + p.firstName25() + "',"
-				 		 + "'" + p.streetAddress40() + "',"
-				 		 + "'" + p.city25() + "',"
-				 		 + "'" + p.getState() + "',"
-				 		 + "'" + p.zip10() + "')";
-		try {
-			dbStatement.executeUpdate(s);
-			count++;
-			System.out.println("Successfully added " + p.toString());
-		} catch (Exception e) {
-			System.out.println("Failed to add patron");
-			e.getMessage();
-			System.out.println("\n\n");
-		}
-		rs = dbStatement.executeQuery("select * from patrons");
-	}
-	
 	public void change(String patronid, 
 					   int columnNum, 
 					   String newValue) throws SQLException {
@@ -280,23 +221,5 @@ public class PatronsDB {
 			System.out.println("\n\n");
 		}
 		rs = dbStatement.executeQuery("select * from patrons");
-	}
-	
-	public void close() throws SQLException {
-		if (rs != null) {
-			rs.close();
-		}
-
-		if (dbStatement != null) {
-			dbStatement.close();
-		}
-
-		if (dbConnection != null) {
-			dbConnection.close();
-		}
-	}
-	
-	private String columnName(int index) {
-		return columnNames.get(index);
 	}
 }

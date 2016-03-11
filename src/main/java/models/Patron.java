@@ -1,8 +1,9 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Patron {
+public class Patron extends LogicalModel {
 	private String id;
 	private String lastName;
 	private String firstName;
@@ -106,5 +107,23 @@ public class Patron {
 	@Override
 	public String toString() {
 		return this.firstName + " " + this.lastName;
+	}
+
+	@Override
+	public String getid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getValues() {
+		List<String> values = new ArrayList<String>();
+		values.add(this.getLastName());
+		values.add(this.getFirstName());
+		values.add(this.getStreetAddress());
+		values.add(this.getCity());
+		values.add(this.getState());
+		values.add(this.getZip());
+		return values;
 	}
 }

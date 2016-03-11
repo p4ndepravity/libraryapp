@@ -1,8 +1,9 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Book {
+public class Book extends LogicalModel {
 	private String id;
 	private String title;
 	private String authorLastName;
@@ -80,6 +81,17 @@ public class Book {
 
 	public void setRating(int rating) {
 		this.rating = rating;
+	}
+	
+	@Override
+	public List<String> getValues() {
+		List<String> values = new ArrayList<String>();
+		values.add(this.getid());
+		values.add(this.getTitle());
+		values.add(this.getAuthorLastName());
+		values.add(this.getAuthorFirstName());
+		values.add(Integer.toString(this.getRating()));
+		return values;
 	}
 
 	public boolean equals(Book other) {

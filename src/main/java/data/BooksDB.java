@@ -1,77 +1,22 @@
 package data;
 
-import java.io.FileInputStream;
 import java.sql.*;
-import java.util.*;
-
 import models.Book;
 
-public class BooksDB {
+public class BooksDB extends DBModel {
+	private static int count = 0;
 
-	private Connection dbConnection = null;
-	private Statement dbStatement = null;
-	private ResultSet rs = null;
-	private List<String> columnNames = new ArrayList<String>();
-	public static int count = 0;
-
-	public BooksDB() throws Exception {
-		columnNames.add("book_id");
-		columnNames.add("title");
-		columnNames.add("author_last_name");
-		columnNames.add("author_first_name");
-		columnNames.add("rating");
-		
-		try {
-			// Load the properties file
-			Properties props = new Properties();
-			props.load(new FileInputStream("db.properties"));
-
-			// Read the props
-			String theUser = props.getProperty("user");
-			String thePassword = props.getProperty("password");
-			String theDburl = props.getProperty("dburl");
-			
-			dbConnection = DriverManager.getConnection(theDburl, 
-													   theUser, 
-													   thePassword);
-	
-			// Create the statement
-			dbStatement = dbConnection.createStatement();
-	
-			rs = dbStatement.executeQuery("select * from Books "
-										+ "order by author_last_name desc");
-			while (rs.next()) {
-				count++;
-			}
-		} catch (Exception exc) {
-			System.out.println("Failed to connect to database.");
-			exc.printStackTrace();
-			System.out.println("\n\n");
-		}
-
-	}
-
-	public void add(Book b) throws SQLException {
-		String s = "insert into books "
-				 + "(book_id,title,author_last_name,author_first_name,rating) "
-				 + "values ('" + b.getid() + "',"
-				 		 + "'" + b.title50() + "',"
-				 		 + "'" + b.authLN25() + "',"
-				 		 + "'" + b.authFN25() + "',"
-				 		 	   + b.getRating() + ")";
-		try {
-			dbStatement.executeUpdate(s);
+	public BooksDB() throws Exception  {
+		super("books");
+		while (rs.next()) {
 			count++;
-			System.out.println("Added book with ID " + b.getid());
-		} catch (Exception e) {
-			System.out.println("Failed to add Book");
-			e.getMessage();
-			System.out.println("\n\n");
 		}
-		rs = dbStatement.executeQuery("select * from Books "
-									+ "order by author_last_name desc");
 	}
 
+	public static int getCount() {
+		return count;
+	}
+	
 	public void displayAll() throws SQLException {
 		String title;
 		String author;
@@ -115,25 +60,6 @@ public class BooksDB {
 									+ "order by author_last_name desc");
 	}
 	
-	public List<String> getSelected(String id) throws SQLException {
-		String query = "select * from Books where book_id like '" + id + "'";
-		rs = dbStatement.executeQuery(query);
-		List<String> values = new ArrayList<String>();
-		if (rs.next()) {
-			values.add(rs.getString("book_id"));        
-			values.add(rs.getString("title"));          
-			values.add(rs.getString("author_first_name"));
-			values.add(rs.getString("author_last_name"));
-			values.add(rs.getString("rating"));
-		} else {
-			System.out.println("Nothing matching query found in database.");
-		}
-
-		rs = dbStatement.executeQuery("select * from Books "
-									+ "order by author_last_name desc");
-		return values;
-	}
-
 	public void returnBooksByAuthLastName(String s) throws SQLException {
 		rs = dbStatement.executeQuery("select * from Books "
 									+ "where author_last_name like '%" + s + "%' "
@@ -257,22 +183,6 @@ public class BooksDB {
 			e.printStackTrace();
 			System.out.println("\n\n");
 		}
-	}
-
-	public void close() throws SQLException {
-		if (rs != null) {
-			rs.close();
-		}
-		if (dbStatement != null) {
-			dbStatement.close();
-		}
-		if (dbConnection != null) {
-			dbConnection.close();
-		}
-	}
-	
-	private String columnName(int index) {
-		return columnNames.get(index);
 	}
 }
 
