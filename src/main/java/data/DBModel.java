@@ -104,6 +104,21 @@ public abstract class DBModel {
 		rs = dbStatement.executeQuery("select * from " + type);
 	}
 	
+	public void display(int choice, String response) throws SQLException {
+		String query;
+		query = String.format("select * from %s where %s like '%%%s%%' order by %s desc", 
+							  this.type, columnName(choice-1), response, columnName(choice-1));
+		rs = dbStatement.executeQuery(query);
+		if (!rs.next()) System.out.println("Nothing found matching those terms.");
+		rs.previous();
+		while(rs.next()) {
+			for (int i=1;i<=columnNames.size();i++) {
+				System.out.println(columnName(i-1) + ": " + rs.getString(i));
+			}
+			System.out.println("----------------------------------");
+		}
+	}
+	
 	public void change(String id, int colNum, String newValue) throws SQLException {
 		String query;
 		String idColumn = this.singular + "_id";

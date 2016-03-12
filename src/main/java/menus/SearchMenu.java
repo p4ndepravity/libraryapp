@@ -50,6 +50,8 @@ public class SearchMenu extends Menu {
 	}
 
 	public void printResults(int choice, String response, BooksDB books) throws SQLException {
+		books.display(choice, response);
+		/*
 		switch (choice) {
 		case 1:
 			books.displaySelected(response);
@@ -78,6 +80,7 @@ public class SearchMenu extends Menu {
 			System.out.println("Unrecognized input.");
 			return;
 		}
+		*/
 	}
 
 	public void printResults(int choice, String response, PatronsDB patrons) throws SQLException {
