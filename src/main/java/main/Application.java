@@ -1,5 +1,8 @@
 package main;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import data.*;
 import menus.*;
 import models.*;
@@ -66,8 +69,8 @@ public class Application {
 					bsm.showOptions();
 					searchFieldIndex = bsm.choose();
 					if (searchFieldIndex > 5 || searchFieldIndex < 1) break;
-					response = bsm.respond(searchFieldIndex);
-					bsm.printResults(searchFieldIndex, response, books);
+					response = "like '%" + bsm.respond(searchFieldIndex) + "%'";
+					books.display(searchFieldIndex, response);
 					break;
 					
 				// Change a book menu
@@ -120,8 +123,8 @@ public class Application {
 					psm.showOptions();
 					searchFieldIndex = psm.choose();
 					if (searchFieldIndex < 1 || searchFieldIndex > 7) break;
-					response = psm.respond(searchFieldIndex);
-					psm.printResults(searchFieldIndex, response, patrons);
+					response = "like '%" + psm.respond(searchFieldIndex) + "%'";
+					patrons.display(searchFieldIndex, response);
 					break;
 					
 				// Change a patron menu	
@@ -177,7 +180,15 @@ public class Application {
 					searchFieldIndex = tsm.choose();
 					if (searchFieldIndex < 1 || searchFieldIndex > 5) break;
 					response = tsm.respond(searchFieldIndex);
-					tsm.printResults(searchFieldIndex, response, transactions);
+					if (searchFieldIndex == 3) {
+						response = tm.searchDay(response);
+						String beginning = "'" + response + " 00:00:00'";
+						String end = "'" + response + " 23:59:59'";
+						response = "between " + beginning + "and" + end;
+					} else {
+						response = "like '%" + response + "%'";
+					}
+					transactions.display(searchFieldIndex, response);
 					break;
 				
 				// Change a transaction menu

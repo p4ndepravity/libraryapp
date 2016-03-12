@@ -16,63 +16,28 @@ public abstract class DBModel {
 
 	public DBModel(String type) {
 		this.type = type;
-		switch (type) {
-		case "books":
-			singular = "book";
-			columnNames.add("book_id");
-			columnNames.add("title");
-			columnNames.add("author_last_name");
-			columnNames.add("author_first_name");
-			columnNames.add("rating");
-			break;
-		case "patrons":
-			singular = "patron";
-			columnNames.add("last_name");
-			columnNames.add("first_name");
-			columnNames.add("street_address");
-			columnNames.add("city");
-			columnNames.add("state");
-			columnNames.add("zip");
-			break;
-		case "transactions":
-			singular = "transaction";
-			columnNames.add("patron_id");
-			columnNames.add("book_id");
-			columnNames.add("transaction_date");
-			columnNames.add("transaction_type");
-			break;
-
-		default:
-			break;
-		}
+		
 		try {
 			// Load the properties file
 			Properties props = new Properties();
 			props.load(new FileInputStream("db.properties"));
 
 			// Read the props
-			String theUser = props.getProperty("user");
-			String thePassword = props.getProperty("password");
-			String theDburl = props.getProperty("dburl");
+			String dbUser = props.getProperty("user");
+			String dbPassword = props.getProperty("password");
+			String dbURL = props.getProperty("dburl");
 
-			dbConnection = DriverManager.getConnection(theDburl, theUser, thePassword);
+			dbConnection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
 
 			// Create the statement
 			dbStatement = dbConnection.createStatement();
-
-			rs = dbStatement.executeQuery("select * from " + type);
-
 		} catch (FileNotFoundException e) {
 			System.out.println("Properties file not found. " + "Check README for instructions.");
-			e.printStackTrace();
-			System.out.println("\n\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("\n\n");
 		} catch (SQLException e) {
 			System.out.println("Unable to connect to database. " + "Check README for instructions.");
-			e.printStackTrace();
-			System.out.println("\n\n");
 		}
 	}
 
@@ -100,13 +65,11 @@ public abstract class DBModel {
 			e.printStackTrace();
 			System.out.println("\n\n");
 		}
-
-		rs = dbStatement.executeQuery("select * from " + type);
 	}
 	
 	public void display(int choice, String response) throws SQLException {
 		String query;
-		query = String.format("select * from %s where %s like '%%%s%%' order by %s desc", 
+		query = String.format("select * from %s where %s %s order by %s desc", 
 							  this.type, columnName(choice-1), response, columnName(choice-1));
 		rs = dbStatement.executeQuery(query);
 		if (!rs.next()) System.out.println("Nothing found matching those terms.");
@@ -133,8 +96,6 @@ public abstract class DBModel {
 			e.printStackTrace();
 			System.out.println("\n\n");
 		}
-
-		rs = dbStatement.executeQuery("select * from Books " + "order by author_last_name desc");
 	}
 	
 	public void delete(String s) throws SQLException {
