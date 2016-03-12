@@ -1,14 +1,7 @@
 package menus;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Scanner;
+import java.text.*;
+import java.util.*;
 
 public abstract class Menu implements MenuInterface {
 	protected List<String> options = new ArrayList<String>();
