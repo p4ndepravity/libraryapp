@@ -18,7 +18,10 @@ public class TransactionsMenu extends Menu {
 		final DateFormat df_out = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			Date d = df_user.parse(userDate);
-			return df_out.format(d);
+			String d_str = df_out.format(d);
+			String beginning = "'" + d_str + " 00:00:00'";
+			String end = "'" + d_str + " 23:59:59'";
+			return "between " + beginning + " and " + end;
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;

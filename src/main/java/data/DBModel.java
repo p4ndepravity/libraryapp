@@ -75,8 +75,8 @@ public abstract class DBModel {
 		if (!rs.next()) System.out.println("Nothing found matching those terms.");
 		rs.previous();
 		while(rs.next()) {
-			for (int i=1;i<=columnNames.size();i++) {
-				System.out.println(columnName(i-1) + ": " + rs.getString(i));
+			for (int i=0;i<columnNames.size();i++) {
+				System.out.println(columnName(i) + ": " + rs.getString(i+1));
 			}
 			System.out.println("----------------------------------");
 		}

@@ -13,6 +13,7 @@ public class SearchMenu extends Menu {
 
 	public SearchMenu(PatronsMenu pm) {
 		this.options.add("Choose a search method: ");
+		this.options.add("ID");
 		this.options.add("Last name");
 		this.options.add("First name");
 		this.options.add("Street Address");
@@ -24,6 +25,7 @@ public class SearchMenu extends Menu {
 
 	public SearchMenu(TransactionsMenu tm) {
 		this.options.add("Choose a search method: ");
+		this.options.add("Transaction ID");
 		this.options.add("Patron ID");
 		this.options.add("Book ID");
 		this.options.add("Date (mm-dd-yyyy)");
