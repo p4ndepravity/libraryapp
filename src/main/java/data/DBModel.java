@@ -12,11 +12,13 @@ public abstract class DBModel {
 	protected ResultSet rs = null;
 	protected List<String> columnNames = new ArrayList<String>();
 	protected String type;
+	protected String singular;
 
 	public DBModel(String type) {
 		this.type = type;
 		switch (type) {
 		case "books":
+			singular = "book";
 			columnNames.add("book_id");
 			columnNames.add("title");
 			columnNames.add("author_last_name");
@@ -24,6 +26,7 @@ public abstract class DBModel {
 			columnNames.add("rating");
 			break;
 		case "patrons":
+			singular = "patron";
 			columnNames.add("last_name");
 			columnNames.add("first_name");
 			columnNames.add("street_address");
@@ -32,6 +35,7 @@ public abstract class DBModel {
 			columnNames.add("zip");
 			break;
 		case "transactions":
+			singular = "transaction";
 			columnNames.add("patron_id");
 			columnNames.add("book_id");
 			columnNames.add("transaction_date");
@@ -98,6 +102,39 @@ public abstract class DBModel {
 		}
 
 		rs = dbStatement.executeQuery("select * from " + type);
+	}
+	
+	public void change(String id, int colNum, String newValue) throws SQLException {
+		String query;
+		String idColumn = this.singular + "_id";
+		query = String.format("update %s set %s='%s' where %s='%s'", 
+							  this.type, columnName(colNum-1), newValue, idColumn, id);
+		try {
+			int rowsAffected = dbStatement.executeUpdate(query);
+			System.out.println(rowsAffected > 0 ? this.singular + " successfully updated."
+							 : String.format("Failed to update %s.", this.singular));
+		} catch (Exception e) {
+			System.out.println("Failed to update " + this.singular + ".");
+			e.printStackTrace();
+			System.out.println("\n\n");
+		}
+
+		rs = dbStatement.executeQuery("select * from Books " + "order by author_last_name desc");
+	}
+	
+	public void delete(String s) throws SQLException {
+		int rowsAffected;
+		String idColumn = this.singular + "_id";
+		String query = String.format("delete from %s where %s='%s'", this.type, idColumn, s);
+		try {
+			rowsAffected = dbStatement.executeUpdate(query);
+			System.out.println(rowsAffected > 0 ? "Successfully deleted " + this.singular
+							 : String.format("%s with id %s not found.", this.singular, s));
+		} catch (Exception e) {
+			System.out.println("Failed to delete " + this.singular);
+			e.printStackTrace();
+			System.out.println("\n\n");
+		}
 	}
 
 	protected String columnName(int index) {

@@ -140,38 +140,6 @@ public class TransactionsDB extends DBModel {
 		
 		rs = dbStatement.executeQuery("select * from transactions");
 	}
-	
-	public void change(String id, 
-			   		   int colNum, 
-			   		   String newValue) throws SQLException {
-		String query = "update transactions set " + columnName(colNum-1) + "='" + newValue + "' "
-					 + "where transaction_id='" + id + "'";
-		try {
-			dbStatement.executeUpdate(query);
-			System.out.println("Transaction successfully updated.");
-		} catch (Exception e) {
-			System.out.println("Failed to update transaction.");
-			e.printStackTrace();
-			System.out.println("\n\n");
-		}
-
-		rs = dbStatement.executeQuery("select * from transactions");
-	}
-	
-	public void delete(String s) throws SQLException {
-		int rowsAffected;
-		String query = "delete from transactions where transaction_id='" + s + "'";
-		try {
-			rowsAffected = dbStatement.executeUpdate(query);
-			count--;
-			System.out.println(rowsAffected > 0 ? "Successfully deleted transaction." 
-							 : "transaction with id " + s + " not found.");
-		} catch (Exception e) {
-			System.out.println("Failed to delete transaction.");
-			e.printStackTrace();
-			System.out.println("\n\n");
-		}
-	}
 }
 
 

@@ -190,36 +190,4 @@ public class PatronsDB extends DBModel {
 		
 		rs = dbStatement.executeQuery("select * from patrons");
 	}
-	
-	public void change(String patronid, 
-					   int columnNum, 
-					   String newValue) throws SQLException {
-		String query = "update patrons set " + columnName(columnNum-1) + "='" + newValue + "' "
-				 + "where patron_id='" + patronid + "'";
-		try {
-			dbStatement.executeUpdate(query);
-			System.out.println("Patron successfully updated.");
-		} catch (Exception e) {
-			System.out.println("Failed to update patron.");
-			e.printStackTrace();
-			System.out.println("\n\n");
-		}
-	
-		rs = dbStatement.executeQuery("select * from patrons");
-	}
-	
-	public void delete(String s) throws SQLException {
-		int rowsAffected;
-		try {
-			rowsAffected = dbStatement.executeUpdate("delete from patrons where patron_id='" + s + "'");
-			count--;
-			System.out.println(rowsAffected > 0 ? "Successfully deleted patron." 
-							 : "patron with id " + s + " not found.");
-		} catch (Exception e) {
-			System.out.println("Failed to delete patron.");
-			e.printStackTrace();
-			System.out.println("\n\n");
-		}
-		rs = dbStatement.executeQuery("select * from patrons");
-	}
 }

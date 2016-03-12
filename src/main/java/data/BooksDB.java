@@ -151,39 +151,6 @@ public class BooksDB extends DBModel {
 			System.out.println("----------------------------");
 		}
 	}
-	
-	public void change(String id, 
-					   int colNum, 
-					   String newValue) throws SQLException {
-		String query = "update Books set " + columnName(colNum-1) + "='" + newValue + "' "
-					 + "where book_id='" + id + "'";
-		try {
-			dbStatement.executeUpdate(query);
-			System.out.println("Book successfully updated.");
-		} catch (Exception e) {
-			System.out.println("Failed to update book.");
-			e.printStackTrace();
-			System.out.println("\n\n");
-		}
-
-		rs = dbStatement.executeQuery("select * from Books "
-									+ "order by author_last_name desc");
-	}
-	
-	public void delete(String s) throws SQLException {
-		int rowsAffected;
-		String query = "delete from Books where book_id='" + s + "'";
-		try {
-			rowsAffected = dbStatement.executeUpdate(query);
-			count--;
-			System.out.println(rowsAffected > 0 ? "Successfully deleted book." 
-							 : "Book with id " + s + " not found.");
-		} catch (Exception e) {
-			System.out.println("Failed to delete book.");
-			e.printStackTrace();
-			System.out.println("\n\n");
-		}
-	}
 }
 
 
