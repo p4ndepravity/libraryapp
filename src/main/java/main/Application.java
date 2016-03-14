@@ -61,7 +61,6 @@ public class Application {
 					Book b = new Book(bam.askOptions());
 					books.add(b);
 					break;
-
 				// Search for books menu
 				case 2:
 					SearchMenu bsm = new SearchMenu(bm);
@@ -231,5 +230,4 @@ public class Application {
 		} while (mainChoice != 0);
 
 	}
-
 }
