@@ -14,13 +14,13 @@ public abstract class DBModel {
 	protected List<String> columnNames = new ArrayList<String>();
 	protected String type;
 	protected String singular;
+	protected Properties props = new Properties();
 
 	public DBModel(String type) {
 		this.type = type;
 
 		try {
 			// Load the properties file
-			Properties props = new Properties();
 			createAndInitializePropertiesFile(props);
 
 			// Read the properties
