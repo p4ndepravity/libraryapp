@@ -23,11 +23,11 @@ public abstract class DBModel {
 			props.load(new FileInputStream("db.properties"));
 
 			// Read the props
-			String dbUser = props.getProperty("user");
-			String dbPassword = props.getProperty("password");
+			//String dbUser = props.getProperty("user");
+			//String dbPassword = props.getProperty("password");
 			String dbURL = props.getProperty("dburl");
 
-			dbConnection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+			dbConnection = DriverManager.getConnection(dbURL);
 
 			// Create the statement
 			dbStatement = dbConnection.createStatement();
@@ -71,14 +71,17 @@ public abstract class DBModel {
 		String query;
 		query = String.format("select * from %s where %s %s order by %s desc", 
 							  this.type, columnName(choice-1), response, columnName(choice-1));
-		rs = dbStatement.executeQuery(query);
-		if (!rs.next()) System.out.println("Nothing found matching those terms.");
-		rs.previous();
-		while(rs.next()) {
-			for (int i=0;i<columnNames.size();i++) {
-				System.out.println(columnName(i) + ": " + rs.getString(i+1));
+		try {
+			rs = dbStatement.executeQuery(query);
+			while(rs.next()) {
+				for (int i=0;i<columnNames.size();i++) {
+					System.out.println(columnName(i) + ": " + rs.getString(i+1));
+				}
+				System.out.println("----------------------------------");
 			}
-			System.out.println("----------------------------------");
+		} catch (Exception e) {
+			System.out.println("Database error.");
+			e.printStackTrace();
 		}
 	}
 	

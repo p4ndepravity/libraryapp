@@ -1,0 +1,4 @@
+user=library
+password=library
+dburl=jdbc:mysql://localhost:3306/library
+dburl=jdbc:sqlite:test.db
